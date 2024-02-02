@@ -7,6 +7,8 @@ body{
   display: flex;
   flex-direction: column;
     overflow-x: hidden;
+    background-color: #131313;
+    color:white;
 }
 #top-nav{
     width: 100%;
@@ -16,7 +18,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #212121;
+    background-color: #131313;;
     padding: 10px;  
     z-index: 1000;
  
@@ -42,7 +44,7 @@ padding: 3px;
  display: flex;
  justify-content: center;
  padding-left: 15px;
- background-color: #121212;
+ background-color: #212121;
  overflow: hidden;
 
 }
@@ -70,33 +72,37 @@ input:focus{
 .person{
     color:rgb(194, 194, 194)
 }
-.main{
+.main,.main-4{
     display: flex;
-    height: 100%;
+    height: 100vh;
     flex:5;
 }
 
 #section-1{
     position:sticky;
-    top: 40px;
+    top: 60px;
     left: 0px;
     color: white;
     width: 15%;
-    height: 92vh;
-    background-color: #212121;
+    height: 91vh;
+    background-color: #131313;
     padding-right: 20px;
     font-family: 'Inter', sans-serif;
-       flex:0.8;
-   overflow-y: auto;
-
+    flex:0.8;
+   overflow-y: scroll;
+   
    
 }
 #section-1::-webkit-scrollbar{
     display: none;
 }
 .main-2{
-    background-color:black;
+    
     flex:4.2;
+    color:white;
+    background-color: #131313;
+    font-family: 'Inter', sans-serif;
+
 }
 
 .li{
@@ -119,14 +125,17 @@ input:focus{
    
 }
 .nav-sec{
+    position: sticky;
+    top:60px;
     height: 50px;
    display: flex;
    flex-direction: row;
    justify-content: space-around;
    align-items: center;
-   background-color: #212121;
+   background-color: #131313;;
    color: white;
    border-top: 1px solid  #2e2e2e;
+   margin-bottom: 10px;
 
 }
 .topic-all{
@@ -162,4 +171,45 @@ input:focus{
 .topics:hover{
     color: #303030;
     background-color: white;
+}
+#video-section{
+    padding-left: 10px;
+     display: flex;
+     flex-wrap: wrap;
+     text-align: center;
+     gap:15px;
+   
+}
+
+.video_disp{
+  width: 380px;
+   height: 250px;
+   overflow-x: hidden;
+   border: 1px solid white;
+   gap:15px;
+
+}
+a>img{
+    width: 320px;
+    border-radius: 12px;
+}
+.video-title{
+ border:1px solid white;
+ padding-inline: 20px;
+}
+.channel-name{
+    text-align: left;
+    font-size: 14px;
+    color: #aba9a9;
+}
+a{
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    gap:10px;
+ 
 }
