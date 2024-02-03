@@ -20,17 +20,20 @@ function dispVideos(videos)
         videoDiv.innerHTML+=`
       <div class="video_disp">
 
-       <a href="watch.html?videoId=${video.id.videoId}" >
+       <a class='anc' href="watch.html?videoId=${video.id.videoId}" >
      <img src=" ${video.snippet.thumbnails.medium.url} " width:"20px"/>
   
-   
+       <div class='divide'>
+       
       <div class='video-title'>
       ${video.snippet.title}
+      </div>
       <div class="channel-name">
       ${video.snippet.channelTitle}
       
+    
       </div>
-      </div>
+       <div>
       </a>
       
       </div> `
