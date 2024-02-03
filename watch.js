@@ -1,4 +1,4 @@
-API_KEY="AIzaSyCFl3FSpqHJOxzWyIOFNgv0PnHYxMWwt8E"
+API_KEY="AIzaSyCUalwOh0nudmojQ_k7MhXQWGNPtqIwHmo"
 BASE_URL="https://www.googleapis.com/youtube/v3"
 
 
@@ -39,6 +39,7 @@ const desc = document.getElementById('desc');
             if (data.items && data.items.length > 0) {
                 const channelId = data.items[0].snippet.channelId;
                 loadChannelInfo(channelId);
+                load(channelId);
             }
         } catch (error) {
             console.error('Error fetching video details: ', error);
@@ -61,15 +62,73 @@ const desc = document.getElementById('desc');
         }
     }
     
+
+
+    async function load(channelId) {
+        try {
+            const response = await fetch(`${BASE_URL}/statistics?key=${API_KEY}&part=snippet&id=${channelId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.items) {
+               display(data.items[0]);
+            }
+        } catch (error) {
+            console.error('Error fetching channel info: ', error);
+        }
+    }  
+
+    function display(items){
+        console.log(items);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
     function displayChannelInfo(channelData) {
         const channelInfoSection = document.getElementById('channel-info');
         channelInfoSection.innerHTML = `
              <div>
             <img src="${channelData.snippet.thumbnails.default.url}" alt="${channelData.snippet.title}">
             <h3>${channelData.snippet.title}</h3>
-
+            
+           </div>
+             <div id =btns>
+           <div id="sub-btn">Subscribe
+           </div>
+           <div id='like-dislike-btn'>
+           </div>
            </div>
         `;
+
+        const btn = document.getElementById('like-dislike-btn');
+        btn.innerHTML=`<div class="li-DI"><span class="material-symbols-outlined">
+        thumb_up
+        </span>
+                        </div>
+                        <div class="DI-li"><span class="material-symbols-outlined">
+        thumb_down
+        </span>
+                        </div>
+                        <div id='share'><img src='assets/Share.png'/>share
+                        </div>
+                        
+                        <div id='download'><span class="material-symbols-outlined">
+                        download_2
+                        </span>Download
+                                        </div>
+                        
+                        
+                        `
         
     }
 
@@ -86,35 +145,37 @@ const desc = document.getElementById('desc');
         })
         .catch(error => console.error('Error fetching video details:', error));
 
-    // async function loadComments(videoId) {
-    //     try {
-    //         const response = await fetch(`${BASE_URL}/commentThreads?key=${API_KEY}&videoId=${videoId}&maxResults=25&part=snippet`);
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
-    //         const data = await response.json();
-    //         console.log("comments", data)
-    //         if (data.items) {
-    //             displayComments(data.items);
-    //         } else {
-    //             console.log("No comments available or data is undefined.");
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching comments: ', error);
-    //     }
-    // }
-    
-    // function displayComments(comments) {
-    //     const commentSection = document.getElementById('comment-section');
-    //     commentSection.innerHTML = '';
-    
-    //     comments.forEach(comment => {
-    //         const commentText = comment.snippet.topLevelComment.snippet.textDisplay;
-    //         const commentElement = document.createElement('p');
-    //         commentElement.innerHTML = commentText;
-    //         commentSection.appendChild(commentElement);
-    //     });
-    // }
+ 
+        async function loadComments(videoId) {
+            try {
+                const response = await fetch(`${BASE_URL}/commentThreads?key=${API_KEY}&videoId=${videoId}&maxResults=25&part=snippet`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log("comments", data)
+                if (data.items) {
+                    displayComments(data.items);
+                    console.log(data.items)
+                } else {
+                    console.log("No comments available or data is undefined.");
+                }
+            } catch (error) {
+                console.error('Error fetching comments: ', error);
+            }
+        }
+        loadComments(videoId);
+        function displayComments(comments) {
+            const commentSection = document.getElementById('comments');
+            commentSection.innerHTML = 'comments';
+        
+            comments.forEach(comment => {
+                const commentText = comment.snippet.topLevelComment.snippet.textDisplay;
+                const commentElement = document.createElement('p');
+                commentElement.innerHTML = commentText;
+                commentSection.appendChild(commentElement);
+            });
+        }
     
     async function loadRecommendedVideos(channelName) {
         try {
@@ -125,7 +186,7 @@ const desc = document.getElementById('desc');
             const data = await response.json();
             console.log("Recommended videos", data)
             if (data.items) {
-                displayRecommendedVideos(data.items);
+                displayRecommendedVideos(data.items ,videoId);
             } else {
                 console.log("No recommended videos available or data is undefined.");
             }
@@ -134,16 +195,18 @@ const desc = document.getElementById('desc');
         }
     }
     
-    function displayRecommendedVideos(videos) {
+    function displayRecommendedVideos(videos,currvid ) {
         const recommendedSection = document.getElementById('recom-watch');
-        recommendedSection.innerHTML = '';
+        recommendedSection.innerHTML = ` <div class="all"><span id="al">All</span>
+        <span id="us">From User</span></div>`;
     
         videos.forEach(video => {
             const videoId = video.id.videoId;
             const title = video.snippet.title;
             const thumbnail = video.snippet.thumbnails.default.url;
+            if (videoId !== currvid) {
             const videoCard = document.createElement('div');
-            videoCard.className='recom-video';
+            videoCard.setAttribute('id',"recom");
             videoCard.innerHTML = `
                 <a href="watch.html?videoId=${videoId}">
                     <img src="${thumbnail}" alt="${title}">
@@ -151,6 +214,8 @@ const desc = document.getElementById('desc');
                 </a>
             `;
             recommendedSection.appendChild(videoCard);
+            }
         });
     }
     
+
