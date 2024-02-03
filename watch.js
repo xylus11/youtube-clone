@@ -1,4 +1,4 @@
-API_KEY="AIzaSyCUalwOh0nudmojQ_k7MhXQWGNPtqIwHmo"
+API_KEY="AIzaSyC7NYT5KwJ6jIiYF4lx3xPN6CcNPHd_bWA"
 BASE_URL="https://www.googleapis.com/youtube/v3"
 
 
@@ -83,14 +83,6 @@ const desc = document.getElementById('desc');
         console.log(items);
     }
     
-
-
-
-
-
-
-
-
 
 
 
@@ -204,7 +196,7 @@ const desc = document.getElementById('desc');
             const videoId = video.id.videoId;
             const title = video.snippet.title;
             const thumbnail = video.snippet.thumbnails.default.url;
-            if (videoId !== currvid) {
+       
             const videoCard = document.createElement('div');
             videoCard.setAttribute('id',"recom");
             videoCard.innerHTML = `
@@ -214,7 +206,7 @@ const desc = document.getElementById('desc');
                 </a>
             `;
             recommendedSection.appendChild(videoCard);
-            }
+            
         });
     }
     

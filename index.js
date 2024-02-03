@@ -1,4 +1,4 @@
-API_KEY="AIzaSyCUalwOh0nudmojQ_k7MhXQWGNPtqIwHmo"
+API_KEY="AIzaSyC7NYT5KwJ6jIiYF4lx3xPN6CcNPHd_bWA"
 BASE_URL="https://www.googleapis.com/youtube/v3"
 
 const btn = document.getElementById('button');
